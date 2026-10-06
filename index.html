@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BooleanLab — Boolean Algebra & Digital Logic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">01</span><div><strong>BooleanLab</strong><small>DML Micro Project</small></div></div>
+    <nav>
+      <a href="#learn">Learn</a>
+      <a href="#simplifier">Simplifier</a>
+      <a href="#truth-table">Truth Table</a>
+      <a href="#circuit">Circuit</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">NYAI301 · DISCRETE MATHEMATICS AND LOGIC</p>
+        <h1>Boolean Algebra in<br><span>Digital Logic Circuit Design</span></h1>
+        <p class="hero-text">Learn Boolean laws, simplify expressions, generate truth tables and visualize the equivalent logic circuit in one interactive web application.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#simplifier">Try the Simulator →</a>
+          <a class="btn ghost" href="#learn">Explore Concepts</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="chip">BOOLEAN ENGINE</div>
+        <div class="formula">F = A·B + A·B'</div>
+        <div class="arrow">↓</div>
+        <div class="result">F = A</div>
+        <div class="mini-note">Simplification reduces circuit complexity.</div>
+      </div>
+    </section>
+
+    <section id="learn" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">FOUNDATION</p>
+        <h2>Boolean Algebra Basics</h2>
+        <p>Boolean algebra works with two values: 0 (False) and 1 (True).</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="gate-icon">AND</div><h3>AND (·)</h3><p>Output is 1 only when all inputs are 1.</p><code>Y = A · B</code></article>
+        <article class="card"><div class="gate-icon">OR</div><h3>OR (+)</h3><p>Output is 1 when at least one input is 1.</p><code>Y = A + B</code></article>
+        <article class="card"><div class="gate-icon">NOT</div><h3>NOT (')</h3><p>Inverts the input: 0 becomes 1 and 1 becomes 0.</p><code>Y = A'</code></article>
+        <article class="card"><div class="gate-icon">LAW</div><h3>De Morgan's Laws</h3><p>Useful for transforming and simplifying logic expressions.</p><code>(A·B)' = A' + B'</code></article>
+      </div>
+
+      <div class="laws">
+        <h3>Important Boolean Laws</h3>
+        <div class="law-grid">
+          <div><b>Identity</b><span>A + 0 = A<br>A · 1 = A</span></div>
+          <div><b>Null / Domination</b><span>A + 1 = 1<br>A · 0 = 0</span></div>
+          <div><b>Idempotent</b><span>A + A = A<br>A · A = A</span></div>
+          <div><b>Complement</b><span>A + A' = 1<br>A · A' = 0</span></div>
+          <div><b>Absorption</b><span>A + A·B = A<br>A(A + B) = A</span></div>
+          <div><b>De Morgan</b><span>(A+B)' = A'·B'<br>(A·B)' = A'+B'</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simplifier" class="section dark-section">
+      <div class="section-heading">
+        <p class="eyebrow">INTERACTIVE TOOL</p>
+        <h2>Boolean Expression Simulator</h2>
+        <p>Enter an expression using variables A–D. Supported operators: + for OR, · or * for AND, and ' or ! for NOT.</p>
+      </div>
+
+      <div class="simulator">
+        <div class="input-row">
+          <input id="expression" value="A*B + A*!B" aria-label="Boolean expression">
+          <button class="btn primary" id="runBtn">Analyze Expression</button>
+        </div>
+        <div class="examples">
+          <span>Examples:</span>
+          <button data-expr="A*B + A*!B">A·B + A·B'</button>
+          <button data-expr="A + A*B">A + A·B</button>
+          <button data-expr="!(A*B)"> (A·B)'</button>
+          <button data-expr="A*B + !A*C">A·B + A'·C</button>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+        <div id="resultArea" class="result-grid hidden">
+          <div class="result-box">
+            <span class="label">NORMALIZED</span>
+            <div id="normalized" class="formula"></div>
+          </div>
+          <div class="result-box highlight">
+            <span class="label">SIMPLIFIED</span>
+            <div id="simplified" class="formula"></div>
+          </div>
+          <div class="result-box">
+            <span class="label">VARIABLES</span>
+            <div id="variables" class="big-value"></div>
+          </div>
+        </div>
+
+        <div id="steps" class="steps hidden"></div>
+      </div>
+    </section>
+
+    <section id="truth-table" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">VERIFICATION</p>
+        <h2>Truth Table Generator</h2>
+        <p>The table is generated automatically for the current expression.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="truthTable"><tbody><tr><td>Analyze an expression to generate the truth table.</td></tr></tbody></table>
+      </div>
+    </section>
+
+    <section id="circuit" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">VISUALIZATION</p>
+        <h2>Logic Circuit View</h2>
+        <p>A simple gate-level representation of common expressions. The circuit updates after analysis.</p>
+      </div>
+      <div id="circuitCanvas" class="circuit-canvas">
+        <div class="empty-circuit">Run an expression above to visualize its logic structure.</div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section quiz-section">
+      <div class="section-heading">
+        <p class="eyebrow">SELF CHECK</p>
+        <h2>Quick DML Quiz</h2>
+      </div>
+      <div class="quiz-card">
+        <p id="question"></p>
+        <div id="options" class="options"></div>
+        <p id="quizFeedback" class="feedback"></p>
+        <button class="btn ghost" id="nextQuestion">Next Question</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>BooleanLab</strong> · DML Micro Project</div>
+    <div>Boolean Algebra • Logic Gates • Truth Tables • Circuit Design</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
